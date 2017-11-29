@@ -1,0 +1,102 @@
+= Docker container Angular
+
+This repository contains configurations to create a Docker container with:
+
+* *Ubuntu* 16.04
+* *Java8*
+* *Maven* latest version
+
+This container needs an Springboot project to work. At the running, it will download build the project and run it.
+
+Like that, after few secondes/minutes, your Springboot app works.
+
+== Getting Started
+
+=== Prerequisites
+
+You have to install *Docker* and *Docker Compose* (optional) to build and run this container.
+You also need to have an Springboot project to start this container.
+
+=== Pull container
+
+You can download this container from *DockerHub* by launching this command :
+
+[source,bash]
+----
+docker pull lparet/docker-ubuntu-angular
+----
+
+It will download the latest version.
+
+=== Run container
+
+==== Prerequisites
+
+Firstly, you have to plug an Springboot project. To do that, you need to create a *data volume* between host and docker container:
+
+- Pull your project in a directory on your host.
+- Copy it path in *docker-compose.yml* and edit */path/to/your/project*
+
+.docker-compose.yml
+----
+services:
+  ubuntu-springboot:
+    image: lparet/docker-ubuntu-springboot
+    container_name: ubuntu-springboot
+    restart: always
+    ports:
+      - "8080:8080"
+    volumes:
+      - /path/to/your/project:/root:rw
+    environment:
+      - ENVIRONMENT=prod
+      - PROJECT_NAME=api
+----
+
+You also can create an environment variable to choose if it's a *production* or *prototype* environment. In parallel, you have to set it in Springboot application configuration. Please consult official documentation.
+
+==== Running
+
+You can use *docker-compose.yml*:
+
+[source,bash]
+----
+docker-compose up -d
+----
+
+It will run your container with parameters specified in the file.
+
+OR
+
+You can use *docker run* command:
+
+[source,bash]
+----
+docker run -it --name ubuntu-springboot -v /path/to/my/project:/root -p 8080:8080 -e ENVIRONMENT=proto -e PROJECT_NAME=api lparet/docker-ubuntu-springboot
+----
+
+=== Test your project
+
+Open in your browser this URL http://localhost:8080
+
+OR
+
+Consult Docker container logs
+
+[source,bash]
+----
+docker logs docker-angular
+----
+
+OR
+
+Go into the Docker container
+
+[source,bash]
+----
+docker exec -it docker-angular bash
+----
+
+== Author
+
+Louis Paret - perso@louisparet.fr

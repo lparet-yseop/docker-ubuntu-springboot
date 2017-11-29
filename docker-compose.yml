@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  ubuntu-springboot:
+    image: lparet/docker-ubuntu-springboot
+    container_name: ubuntu-springboot
+    restart: always
+    ports:
+      - "8080:8080"
+    volumes:
+      - /path/to/your/project:/root:rw
+    environment:
+      - ENVIRONMENT=proto
+      - PROJECT_NAME=api
