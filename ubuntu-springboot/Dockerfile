@@ -1,4 +1,4 @@
-FROM lparet/docker-ubuntu-java8
+FROM lparet/docker-ubuntu-java8:1.0
 LABEL Louis Paret <perso@louisparet.fr>
 
 ENV TZ=Europe/Paris
