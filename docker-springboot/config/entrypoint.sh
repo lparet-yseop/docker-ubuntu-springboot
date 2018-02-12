@@ -26,9 +26,9 @@ echo -e "Deploiment of ${ENVIRONMENT} environment"
 cd ${HOME}
 if [ -n "${ENVIRONMENT}" ]; then
     ## You can define a environment variable named ENVIRONMENT (prod, proto, dev...)
-    java -jar -Dspring.profiles.active=${ENVIRONMENT} api.jar >> ${REPO_DIR}/logs/output.log
+    java -jar -Dspring.profiles.active=${ENVIRONMENT} api.jar >> ${REPO_DIR}/logs/output-`date "+%m-%d-%Y"`.log
 else
-    java -jar api.jar >> ${REPO_DIR}/logs/output.log
+    java -jar api.jar >> ${REPO_DIR}/logs/output-`date "+%m-%d-%Y"`.log
 fi
 
 echo "/Entrypoint"
